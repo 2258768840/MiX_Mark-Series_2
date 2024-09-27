@@ -1,0 +1,47 @@
+import { Image, Shader, MaterialType, Material, ShaderMaterial, Animation, Environment, Container, SceneNodeParameters,
+  LightType, Light, Camera, SceneResourceParameters, SceneResourceFactory, Scene, Node } from '@kit.ArkGraphics3D';
+
+@Entry
+@Component
+struct Model {
+  scene: Scene | null = null;
+  @State sceneOpt: SceneOptions | null = null;
+  cam: Camera | null = null;
+
+  onPageShow(): void {
+    this.Init();
+  }
+
+  Init(): void {
+    if (this.scene == null) {
+      // 加载模型，将gltf文件放置到相关路径，加载时以实际路径为准
+      Scene.load($rawfile('gltf/DamagedHelmet/glTF/DamagedHelmet.gltf'))
+      .then(async (result: Scene) => {
+        this.scene = result;
+        let rf:SceneResourceFactory = this.scene.getResourceFactory();
+        // 创建相机
+        this.cam = await rf.createCamera({ "name": "Camera" });
+        // 设置合适的相机参数
+        this.cam.enabled = true;
+        this.cam.position.z = 5;
+        this.sceneOpt = { scene: this.scene, modelType: ModelType.SURFACE } as SceneOptions;
+      })
+      .catch((reason: string) => {
+        console.log(reason);
+      });
+    }
+  }
+
+  build() {
+    Row() {
+      Column() {
+        if (this.sceneOpt) {
+          // 通过Component3D呈现3D场景
+          Component3D(this.sceneOpt)
+        } else {
+          Text("loading ...")
+        }
+      }.width('100%')
+    }.height('60%')
+  }
+}
