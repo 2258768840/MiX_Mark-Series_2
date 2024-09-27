@@ -1,0 +1,22 @@
+import { Image, Shader, MaterialType, Material, ShaderMaterial, Animation, Environment, Container, SceneNodeParameters,
+  LightType, Light, Camera, SceneResourceParameters, SceneResourceFactory, Scene, Node } from '@kit.ArkGraphics3D';
+
+function createLightPromise() : Promise<Light> {
+  return new Promise(() => {
+    let scene: Promise<Scene> = Scene.load($rawfile("gltf/CubeWithFloor/glTF/AnimatedCube.gltf"));
+    scene.then(async (result: Scene) => {
+      let sceneFactory: SceneResourceFactory = result.getResourceFactory();
+      let sceneLightParameter: SceneNodeParameters = { name: "light" };
+      // 创建平行光
+      let light: Promise<Light> = sceneFactory.createLight(sceneLightParameter, LightType.DIRECTIONAL);
+      light.then(async (lightEntity: Light) => {
+        // 设置平行光的颜色属性
+        lightEntity.color = { r: 0.8, g: 0.1, b: 0.2, a: 1.0 };
+
+        // 可以参照此方式设置光源很多其他的参数
+        // ...
+      });
+      return light;
+    });
+  });
+}
