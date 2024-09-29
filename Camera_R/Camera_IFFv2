@@ -13,7 +13,7 @@ function createLightPromise() : Promise<Light> {
         // 设置平行光的颜色属性
         lightEntity.color = { r: 0.8, g: 0.1, b: 0.2, a: 1.0 };
 
-        // 可以参照此方式设置光源很多其他的参数
+        // 可以参照此方式设置光源很多其他的参数,注意保存源文件，以免造成不可逆损失
         // ...
       });
       return light;
