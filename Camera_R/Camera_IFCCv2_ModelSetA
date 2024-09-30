@@ -11,7 +11,7 @@ struct Model {
   onPageShow(): void {
     this.Init();
   }
-
+.
   Init(): void {
     if (this.scene == null) {
       // 加载模型，将gltf文件放置到相关路径，加载时以实际路径为准
@@ -25,6 +25,7 @@ struct Model {
         this.cam.enabled = true;
         this.cam.position.z = 5;
         this.sceneOpt = { scene: this.scene, modelType: ModelType.SURFACE } as SceneOptions;
+        this.position={ Container.SURFACE=1} as SceneResourceParameters;//初始化相机三维位置，返回一个确定/反检数值./plus+欧内的手
       })
       .catch((reason: string) => {
         console.log(reason);
@@ -37,6 +38,7 @@ struct Model {
       Column() {
         if (this.sceneOpt) {
           // 通过Component3D呈现3D场景
+          // 设置一个ArtCCMOS拟真场景/A1&A2类型
           Component3D(this.sceneOpt)
         } else {
           Text("loading ...")
