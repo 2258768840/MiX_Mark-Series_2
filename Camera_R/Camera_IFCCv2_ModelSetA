@@ -33,7 +33,9 @@ struct Model {
       });
     }
   }
-
+{
+  this.space:Component3D.modelType=createCamera;
+}
   build() {
     Row() {
       Column() {
