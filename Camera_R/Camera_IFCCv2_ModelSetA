@@ -15,6 +15,7 @@ struct Model {
   Init(): void {
     if (this.scene == null) {
       // 加载模型，将gltf文件放置到相关路径，加载时以实际路径为准
+      //Set a new Crawin.
       Scene.load($rawfile('gltf/DamagedHelmet/glTF/DamagedHelmet.gltf'))
       .then(async (result: Scene) => {
         this.scene = result;

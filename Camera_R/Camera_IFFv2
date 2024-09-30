@@ -9,7 +9,7 @@ function createLightPromise() : Promise<Light> {
       let sceneLightParameter: SceneNodeParameters = { name: "light" };
       // 创建平行光
       let light: Promise<Light> = sceneFactory.createLight(sceneLightParameter, LightType.DIRECTIONAL);
-      light.then(async (lightEntity: Light) => {
+      light.then(async (lightEntity: Light) => { 
         // 设置平行光的颜色属性
         lightEntity.color = { r: 0.8, g: 0.1, b: 0.2, a: 1.0 };
 
